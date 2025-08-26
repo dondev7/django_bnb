@@ -1,31 +1,37 @@
 from django.db import models
+from common.models import CommonModel
 
-class Tweet(models.Model):
+
+class Tweet(CommonModel):
+    """Tweet Model Definition"""
+
     payload = models.CharField(max_length=180)
     user = models.ForeignKey(
         "users.User",
-        related_name="tweets",
         on_delete=models.CASCADE,
+        related_name="tweets",
     )
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return self.payload[:50]  # Return first 50 characters of the tweet text
-    
-class Like(models.Model):
+
+    def like_count(self):
+        return self.likes.count()
+
+
+class Like(CommonModel):
+    """Like Model Definition"""
+
     tweet = models.ForeignKey(
-        Tweet,
-        related_name="likes",
+        "tweets.Tweet",
         on_delete=models.CASCADE,
+        related_name="likes",
     )
     user = models.ForeignKey(
         "users.User",
-        related_name="likes",
         on_delete=models.CASCADE,
+        related_name="likes",
     )
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return f"{self.user.username} likes {self.tweet.id}" 
+        return f"{self.tweet.payload}"
