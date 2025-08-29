@@ -2,13 +2,8 @@ from rest_framework import serializers
 from .models import Tweet
 
 
-class TweetSerializer(serializers.Serializer):
-    """Tweet Serializer using base Serializer class (not ModelSerializer)"""
-    
-    id = serializers.IntegerField(read_only=True)
-    payload = serializers.CharField(max_length=180)
-    created_at = serializers.DateTimeField(read_only=True)
-    updated_at = serializers.DateTimeField(read_only=True)
+class TweetSerializer(serializers.ModelSerializer):
+    """Tweet Serializer using ModelSerializer for automatic field generation"""
     
     # User information
     user_id = serializers.IntegerField(source='user.id', read_only=True)
@@ -16,6 +11,19 @@ class TweetSerializer(serializers.Serializer):
     
     # Custom method field for like count
     like_count = serializers.SerializerMethodField()
+    
+    class Meta:
+        model = Tweet
+        fields = [
+            'id',
+            'payload',
+            'created_at',
+            'updated_at',
+            'user_id',
+            'username',
+            'like_count'
+        ]
+        read_only_fields = ['id', 'created_at', 'updated_at']
     
     def get_like_count(self, obj):
         return obj.like_count()
