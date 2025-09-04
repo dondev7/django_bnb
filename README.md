@@ -1,5 +1,19 @@
 # 에어비앤비 챌린지
 
+## Authentication (2025-09-04 / 목요일 / Week 3)
+
+- 오늘의 강의: 에어비앤비 클론코딩: From #15.0 to #15.2
+- 제출기간: 익일 오전 6시까지
+
+### Mission:
+
+- Build an authentication class named UsernameAuthentication.
+- UsernameAuthentication should extend from BaseAuthentication.
+- Find the user using the X-USERNAME header.
+- UsernameAuthentication라는 이름의 authentication class를 빌드하세요.
+- UsernameAuthentication 는 반드시 BaseAuthentication에서 extend 되어야 합니다.
+- X-USERNAME 헤더를 사용하는 유저를 찾으세요.
+
 ## Users (2025-09-03)
 
 - 오늘의 강의: 에어비앤비 클론코딩: From #12.0 to #12.3
